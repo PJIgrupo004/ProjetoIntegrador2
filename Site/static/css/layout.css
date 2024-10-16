@@ -10,9 +10,10 @@ header {
 }
 
 header img {
-    width: 272px;
+    width: 230px;
     height: 230px;
-    padding-left: 50px;
+    margin-left: 50px;
+    border-radius: 50%;
 }
 
 .navbar {
@@ -47,6 +48,7 @@ header img {
 
 body {
     background-color: #fceebe;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
 }
 
@@ -96,7 +98,6 @@ table {
 
 table, td, th {
   background-color: white;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   border: 1px solid black;
   border-collapse: collapse;
 }

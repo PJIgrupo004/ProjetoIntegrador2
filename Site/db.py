@@ -66,15 +66,15 @@ class cliente():
         db = getdb()
         cursor = db.cursor(dictionary=True)
         #print('insert into clientes (nome,telefone,endereco,cpf,email,tipoServico,agenda) values ("'+nome+'","'+telefone+'",'+endereco+','+cpf+','+email+','+tipoServico+','+agenda+')')
-        cursor.execute(f"INSERT INTO clientes VALUES (default, '{nome}','{telefone}','{endereco}','{cpf}','{email}','{tipoServico}','{agenda}')")
+        cursor.execute(f"INSERT INTO clientes VALUES (default, '{nome}','{telefone}','{endereco}','{cpf}','{email}','{agenda}')")
         db.commit()  
         cursor.close()
         return 1
     
-    def update_cliente(id,nome,telefone,endereco,cpf,email,tipoServico,agenda):
+    def update_cliente(id,nome,telefone,endereco,cpf,email,agenda):
         db = getdb()
         cursor = db.cursor(dictionary=True)
-        cursor.execute('update clientes set (nome,telefone,endereco,cpf,email,tipoServico,agenda) values ('+nome+','+telefone+','+endereco+','+cpf+','+email+','+tipoServico+','+agenda+') where id_cliente='+id)
+        cursor.execute('update clientes set (nome,telefone,endereco,cpf,email,agenda) values ('+nome+','+telefone+','+endereco+','+cpf+','+email+','+agenda+') where id_cliente='+id)
         db.commit()  
         affected_rows = cursor.rowcount
         if affected_rows is not None and affected_rows > 0:
@@ -98,7 +98,7 @@ class cliente():
     def exclui_clientes(cpf):
         db =getdb()
         cursor = db.cursor(dictionary=True)
-        cursor.execute(f"DELETE FROM clientes WHERE cpf='{cpf}'")
+        cursor.execute(f"DELETE FROM clientes WHERE id_cliente='{cpf}'")
         db.commit()  
         cursor.close()
         return True

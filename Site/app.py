@@ -68,40 +68,11 @@ def login():
 def dashboard():
     return render_template("/adm/jinja_dashboard.html")
 
-#Tela Cadastro de Clientes
-#@app.route("/cadastro_cliente", methods=['GET', 'POST'])
-#@login_required
-#def cadastro_cliente():    
-#    if request.method == 'POST':
-#        nome = request.form['nome']
-#        telefone = request.form['telefone']
-#        data_nascimento = request.form['data_nascimento'] if request.form['data_nascimento'] != '' else "null"
-#        endereco = '"'+request.form['endereco']+'"' if request.form['endereco'] != '' else "null"
-#        retorno = db.cliente.insert_cliente(nome,telefone,data_nascimento,endereco)
-#        if retorno != None:
-#            flash("Cliente cadastrado com sucesso!")
-#    return render_template("/adm/jinja_cadastro_cliente.html")
-
-#Tela Clientes Cadastrados
-#@app.route("/administrador")
-#@login_required
-#def clientes_cadastrados():   
-#   return render_template("/jinja_administrador.html", clientes=db.cliente.get_clientes())
-   
-
-
 
 #Rota para a área do administrador
 @app.route("/administrador", methods=['GET', 'POST'],)
-#@login_required
+@login_required
 def administrador():
-    #nome = request.form.get('nome')
-    #telefone = request.form.get('telefone')
-    #endereco = request.form.get('endereco')
-    #cpf = request.form.get('cpf')
-    #email = request.form.get('email')
-    #tipoServico = request.form.get('tipoServico')
-    #agenda = request.form.get('agenda')
     
     #Código abaixo para cadastrar o cliente no banco de dados.
     if request.method == 'POST':
@@ -111,10 +82,9 @@ def administrador():
         endereco = request.form['endereco'] #'"'+request.form['endereco']+'"' if request.form['endereco'] != '' else "null"
         cpf = request.form['cpf']
         email = request.form['email']
-        tipoServico = request.form['tipoServico']
         agenda = request.form['agenda']
 
-        retorno = db.cliente.insert_cliente(nome,telefone,endereco,cpf,email,tipoServico,agenda)
+        retorno = db.cliente.insert_cliente(nome,telefone,endereco,cpf,email,agenda)
         
         if retorno != None:
             flash("Cliente cadastrado com sucesso!")
@@ -122,32 +92,18 @@ def administrador():
     #Parte do código que atualiza a tabela Base de cliente quando cadastra
     clientes=db.cliente.get_clientes()
        
-    return render_template("/jinja_administrador.html", clientes=clientes)
+    return render_template("/adm/jinja_administrador.html", clientes=clientes)
 
 
 #Parte do código que exclui o cliente quando aperta o botão excluir na base de clientes
-@app.route('/excluir/<cpf>')
-def linhaBaseDadosExcluir(cpf):
-    
+@app.route('/excluir/<id>')
+def linhaBaseDadosExcluir(id):
     try:
-        db.cliente.exclui_clientes(cpf)                     #Sabrina ------- AQUI
-        return render_template("/jinja_administrador.html") #Essa parte tem que ser concertada para o botão excluir direcionar para o local correto
-
+        db.cliente.exclui_clientes(id)     
+        return redirect(url_for('/administrador'))
     except:
         return ("algo deu errado")
     
-
-    
-
-
-#def clientes_cadastrados():
-
-#   clientes = db.cliente.get_clientes()
-#    print('----------------------')
-#    print(clientes)
-#    print('----------------------')
-#
-#    return render_template("/jinja_administrador.html",clientes)
 
 
 # Rota de logout

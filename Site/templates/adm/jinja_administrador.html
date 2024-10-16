@@ -52,7 +52,7 @@
 
                     <div class="form_grupo">
                         <label for="CPF" class="form_label">CPF/CNPJ:</label>
-                        <input type="text" class="form_input" name="cpf" id="cpf" required placeholder="Digite apenas números">
+                        <input type="text" class="form_input" name="cpf" id="cpf" placeholder="Digite apenas números">
                     </div>
 
                     <div class="form_grupo">
@@ -61,15 +61,40 @@
                     </div>
 
                     <div class="form_grupo">
-                        <label for="Data" class="form_label">Endereço</label>
-                        <input type="text" class="form_input" name="endereco" id="endereco" required placeholder="Digite o endereço">
+                        <label for="email" class="form_label">Email:</label>
+                        <input type="email" class="form_input" name="email" id="email" placeholder="Digite seu email">
                     </div>
 
                     <div class="form_grupo">
-                        <label for="email" class="form_label">Email:</label>
-                        <input type="email" class="form_input" name="email" id="email" required placeholder="Digite seu email">
+                        <label for="CEP" class="form_label">CEP:</label>
+                        <input type="text" class="form_input" maxlength="9" id="cep" onkeyup="handleZipCode(event)"/>
                     </div>
 
+                    <div class="form_grupo">
+                        <label for="Rua" class="form_label">Rua:</label>
+                        <input type="text" class="form_input" id="rua"/>
+                    </div>
+
+                    <div class="form_grupo">
+                        <label for="Número" class="form_label">Número:</label>
+                        <input type="text" class="form_input" id="numero"/>
+                    </div>
+
+                    <div class="form_grupo">
+                        <label for="Bairro" class="form_label">Bairro:</label>
+                        <input type="text" class="form_input" id="bairro"/>
+                    </div>
+
+                    <div class="form_grupo">
+                        <label for="Cidade" class="form_label">Cidade:</label>
+                        <input type="text" class="form_input" id="cidade"/>
+                    </div>
+
+                    <div class="form_grupo">
+                        <label for="Estado" class="form_label">Estado:</label>
+                        <input type="text" class="form_input" id="estado"/>
+                    </div>
+                    
                     <div class="form_grupo">
                         <label for="Tipo do serviço" class="text">Tipo de Serviço</label> <!--A class aqui é text, diferente dos outros-->
                             <select name="tipoServico" id="tipoServico" class="dropdown" required>
@@ -94,60 +119,6 @@
                 </form>
             </div>
             
-            <!--Fim do código novo do formulário para deixa bonitão-->
-
-            <!--código antigo que fiz a implmentação do back-end e testes
-
-            <div id="form_cadastro">
-                <form action="/administrador" id="administrador" method="POST">
-                    <label for="Nome">Nome:</label><br>
-                    <input type="text" name="nome" id="nome" required placeholder="Digite o nome e sobrenome"><br><br>
-                    <label for="CPF">CPF:</label><br>
-                    <input type="text" name="cpf" id="cpf" required placeholder="digite apenas números"><br><br>
-                    <label for="Telefone">Telefone:</label><br>
-                    <input type="text" name="telefone" id="telefone" required placeholder="digite apenas números: DDD e número"><br><br>
-                    <label for="Data">Endereço</label><br>
-                    <input type="text" name="endereco" id="endereco" required placeholder="digite o endereço"><br><br>
-                    <label for="email">Email:</label><br>
-                    <input type="email" name="email" id="email" required placeholder="digite seu email"><br><br>
-                    <label for="Tipo do serviço">Tipo de Serviço:</label><br>
-                    <input type="text" name="tipoServico" id="tipoServico" required placeholder="digite o serviço"><br><br>
-                    <label for="Data">Agenda:</label><br>
-                    <input type="text" name="agenda" id="agenda" required placeholder="digite a agenda desejada"><br><br>
-                    <button type="submit" id="btnCadastro" class="btn btn-dark btn-lg">
-                        <span></span>
-                        <span></span>Cadastrar
-                    </button>
-                </form> <br>
-            </div>
-
-            -->
-
-            <h2>Clientes pendentes</h2>
-            <div id="form_Tabela">
-                <table>
-                    <tr>
-                        <th>Nome</th>
-                        <th>CPF</th>
-                        <th>Telefone</th>
-                        <th>Endereço</th>
-                        <th>Tipo de Serviço</th>
-                        <th>Data de Execução</th>
-                        <th>Ações</th>
-                    </tr>
-                    <tr>
-                        <td>Elder</td>
-                        <td>1111111111111</td>
-                        <td>1999999999</td>
-                        <td>Rua Fulano</td>
-                        <td>Instalação</td>
-                        <td>14/02/58</td>
-                        <td>Aceitar Serviço / Deletar</td>
-                    </tr>
-                    
-                </table><br>
-            </div>
-            
 
             <h2>Base de clientes</h2>
             <div id="form_Tabela">
@@ -158,7 +129,6 @@
                         <th>Telefone</th>
                         <th>Email</th>
                         <th>Endereço</th>
-                        <th>Tipo de Serviço</th>
                         <th>Data de Execução</th>
                         <th colspan="2">Ações</th>
                     </tr>
@@ -171,11 +141,15 @@
                             <td>{{c["cpf"]}}</td>
                             <td>{{c["telefone"]}}</td>
                             <td>{{c["email"]}}</td>
-                            <td>{{c["endereco"]}}</td>
-                            <td>{{c["tipoServico"]}}</td>
+                            <td>{% if c["rua"] == None %}
+                                    {{''}}
+                                {% else %}    
+                                    {{c["rua"]+','+c["numero"]+','+c["bairro"]+','+c["cidade"]+'-'+c["estado"]}}
+                                {% endif %}
+                            </td>
                             <td>{{c["agenda"]}}</td>
                             <td><a class="btn btn-primary btn-sm">Atualizar</a></td>
-                            <td><a class="btn btn-danger btn-sm" href='/excluir/{{c["cpf"]}}'>Excluir</a></td>
+                            <td><a class="btn btn-danger btn-sm" href='/excluir/{{c["id_cliente"]}}'>Excluir</a></td>
                         </tr>
                     
                     {% endfor %}
@@ -188,6 +162,39 @@
             
         </div>
         </div>
+        <script type="text/javascript">
+            const handleZipCode = (event) => {                   
+                let input = event.target
+                input.value = zipCodeMask(input.value)
+            }
+
+            const zipCodeMask = (value) => {
+              if (!value) return ""
+              value = value.replace(/\D/g,'')
+              value = value.replace(/(\d{5})(\d)/,'$1-$2')
+              return value
+            }
+
+            document.getElementById("cep").addEventListener("focusout", buscaCEP);
+
+            function buscaCEP() {
+                let cep = event.target
+                let json_fetch = ''
+                const requestOptions = {
+                      method: "GET",
+                      redirect: "follow"
+                    };
+                fetch('https://brasilapi.com.br/api/cep/v2/'+cep.value.replace('-',''), requestOptions)
+                    .then((response) => json_fetch = response.json(),
+                    document.getElementById("estado").value = json_fetch['state'],
+                    document.getElementById("cidade").value = json_fetch['city'],
+                    document.getElementById("rua").value = json_fetch['street'],
+                    document.getElementById("bairro").value = json_fetch['neighborhood'],
+                    console.log(json_fetch)
+                )
+                    .catch((error) => console.error(error));
+            }
+        </script>
     </body>
     </main>
 {% endblock %}
