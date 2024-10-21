@@ -2,3 +2,5 @@ __pycache__
 .venv
 *.pyc
 db_connection_data.py
+poetry.lock
+.env_local

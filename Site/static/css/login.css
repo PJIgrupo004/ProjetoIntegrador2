@@ -1,57 +1,94 @@
-.form-container {
+body {
+    background: linear-gradient(to right, #d2a679, #8b4513);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60vh;
+    height: 100vh;
+    margin: 0;
 }
-.button-confirm {
-    width: 370px;
-    padding: 10px;
-    margin-top: 20px;
-    background-color: black;
-    outline: none;
-    border: none;
+
+.login-card {
+    background-color: #333;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
     color: white;
-    cursor: pointer;
+    width: 500px;
+    max-width: 90%;
+    text-align: center;
+}
 
+.icon-container {
+    font-size: 8rem;
+    color: white;
+    margin-bottom: 1rem;
 }
-.button-confirm:hover {
-    background-color: black;
-}
-.button-confirm:active {
-    background-color: black;
+
+.input-group-text {
+    background-color: #444;
+    border: 1px solid #444;
     color: white;
 }
-.card {
 
-    height: 80%;
-}
-.card-body {
-    display: flex;
-    flex-direction: column;
-}
-
-
-.input-group {
-    margin-bottom: 40px;
-    margin-top: 40px;
-    outline-color: black;
-}
 .form-control {
-    width: 350px;
-    height: 30px;
-    border: none;
-    border-bottom: 1px solid black;
-    border-radius: 3px;
-    cursor: pointer;
+    background-color: #444;
+    color: white;
+    border: 1px solid #444;
+    padding: 0.75rem
 }
+
 .form-control:focus {
+    background-color: #444;
+    color: white;
+    border-color: white;
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
     outline: none;
-    font-size: 1.1em;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-.ico_pessoa {
-    padding-left: 150px;
+.form-control::placeholder {
+    color: #C1C1C1;
+    opacity: 1; /* Opacidade total */
 }
 
+/* Para Firefox */
+.form-control::-moz-placeholder {
+    color: #C1C1C1;
+}
+
+/* Para Internet Explorer 10+ */
+.form-control:-ms-input-placeholder {
+    color: #C1C1C1;
+}
+
+/* Para Edge */
+.form-control::-ms-input-placeholder {
+    color: #C1C1C1;
+}
+
+.form-control:focus::placeholder {
+    color: white; /* Placeholder branco no foco */
+}
+
+.btn-primary {
+    background-color: #d2a679;
+    border-color: #8b4513;
+    padding: 0.75rem;
+}
+
+.btn-primary:hover {
+    background-color: #bf8c5a;
+    border-color: #7a3b0d;
+}
+
+/* Estilos responsivos */
+@media (max-width: 576px) {
+    .login-card {
+        padding: 2rem;
+        height: auto;
+        width: 90%;
+    }
+
+    .login-card input {
+        height: 35px;
+    }
+}

@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block head %}
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/css/login.css">
+    
+{% endblock %}
+
+{% block body %}
+
+<main>
+    <div class="login-card text-center">        
+        <div class="icon-container"><i class="bi bi-shield-lock-fill"></i></div>
+        <h3 class="text-center">Login</h3>
+        <form method="POST" action="/login">
+            <div class="input-group mb-4 mt-5">
+                <label  class="input-group-text"><i class="bi bi-person"></i></label >
+                <input type="text" class="form-control" name="username" id="username" placeholder="{{ strings.id }}" aria-label="ID" aria-describedby="id-addon" required>
+            </div>
+            <div class="input-group mb-4">
+                <span   class="input-group-text" ><i class="bi bi-lock"></i></span  >
+                <input type="password" id="password" name="password" class="form-control" placeholder="{{ strings.password_placeholder }}" aria-label="Password" aria-describedby="password-addon" required>
+            </div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Entrar</button>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}

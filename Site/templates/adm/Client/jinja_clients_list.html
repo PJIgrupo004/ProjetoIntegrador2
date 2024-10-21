@@ -1,0 +1,56 @@
+{% extends "/adm/layout_adm.html" %}
+
+{% block head %}
+<title>{{ strings.table_title }}</title>
+<link rel="stylesheet" href="/static/css/list.css">
+<script src="{{ url_for('static', filename='scripts/list_search.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<main>
+    <h1>{{ strings.table_title }}</h1>
+
+    <div class="table-wrapper">
+        <input type="text" class="form-control" id="filterInput" onkeyup="filterTable()" placeholder="{{ strings.filter_placeholder }}">
+        <table id="clientsTable" class="table table-bordered">
+            <thead class="thead-dark bg-style-2 text-center align-middle">
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">CPF/CNPJ</th>
+                    <th scope="col">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Telefone</span>
+                            <div class="d-inline-block ms-2">
+                                <a href="/clientes/cadastro" class="btn btn-icon-plus text-dark btn-sm">
+                                    <i class="bi bi-plus-circle" style="font-size: 1rem;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for cliente in clientes %}
+            <tr>
+                <td id="{{cliente['nome']}}">{{cliente['nome']}}</td>
+                <td id="{{cliente['nome']}}">{{cliente['cpf_cnpj']}}</td>
+                <td>
+                    <div class="d-flex justify-content-between align-items-center tiny-column">
+                        <span>{{ cliente['telefone'] }}</span>
+                        <div class="d-inline-block tiny-column ms-2">
+                            <button class="btn btn-danger btn-sm btn-top" onclick="deleteOnList('{{ cliente['id_cliente'] }}', 'clientes', '{{ strings.delete_register }}')">
+                                <i class="bi bi-trash" style="font-size: 1rem;"></i>
+                            </button>
+                            <button class="btn btn-warning btn-sm" onclick='editObj({{ cliente|tojson|safe }}, "id_cliente", "clientes")'>
+                                <i class="bi bi-pencil" style="font-size: 1rem;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
+{% endblock %}

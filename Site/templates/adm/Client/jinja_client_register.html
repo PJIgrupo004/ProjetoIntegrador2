@@ -1,0 +1,92 @@
+{% extends "/adm/layout_adm.html" %}
+
+{% block head %}
+<title>{{ strings.title }}</title>
+<link rel="stylesheet" href="/static/css/register.css">
+<script src="{{ url_for('static', filename='scripts/home.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/address.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<main>
+    <label>{{cliente.referencia_end}}</label>
+        <h2 class="card-title text-center">
+            {% if cliente  %}
+                {{ strings.edit_title }}
+            {% else %}
+                {{ strings.title }}
+            {% endif %}
+        </h2>
+        <form action="{% if cliente %}/clientes/{{ cliente['id_cliente'] }}{% else %}/clientes/cadastro{% endif %}" method="POST">
+            <div class="card">
+            <div class="input-group">
+                <label>Nome:</label>
+                <input type="text" name="nome" class="form-control ml-2" required="required" placeholder="Nome"
+                    aria-describedby="basic-addon1" value="{{ cliente.nome| default('') }}"/>
+            </div>
+            <div class="input-group">
+                <label>CPF/CNPJ:</label>
+                <input type="text" name="cpf_cnpj" class="form-control ml-2" required="required" placeholder="CPF/CNPJ"
+                    aria-describedby="basic-addon1" value="{{ cliente.cpf_cnpj| default('') }}"/>
+            </div>
+            <div class="input-group">
+                <label>Telefone:</label>
+                <input type="text" name="telefone" class="form-control ml-2" required="required" placeholder="Telefone"
+                    aria-describedby="basic-addon1" value="{{ cliente.telefone| default('') }}" />
+            </div>
+            <div class="input-group">
+                <label>Data de nascimento:</label>
+                <input type="date" name="data_nascimento" class="form-control ml-2"
+                    aria-describedby="basic-addon1" value="{{ cliente.data_nascimento | default('') }}"/>
+            </div>
+        </div>
+            <div class="card">
+                <h2 class="card-title text-center">{{ strings.address_title }}</h2>
+                    <div class="input-group">
+                        <label>CEP:</label>
+                        <input type="text" name="cep" class="form-control ml-2" required="required" placeholder="CEP"
+                            aria-describedby="basic-addon1" onfocusout="buscaCEP(this.value);" value="{{ cliente.cep| default('') }}"/>
+                    </div>
+                    <div class="input-group">
+                        <label>Rua:</label>
+                        <input type="text" id="rua" name="rua" class="form-control ml-2" style="width: 30%;" required="required" placeholder="Rua"
+                            aria-describedby="basic-addon1" value="{{ cliente.rua| default('') }}"/>
+                    </div>
+                    <div class="input-group">
+                        <label>Número:</label>
+                        <input type="number" name="numero" class="form-control ml-2" required="required" placeholder="Número"
+                            aria-describedby="basic-addon1" value="{{ cliente.numero_casa| default('') }}" />
+                    </div>
+                    <div class="input-group">
+                        <label>Bairro:</label>
+                        <input type="text" id="bairro" name="bairro" class="form-control ml-2" required="required" placeholder="Bairro"
+                            aria-describedby="basic-addon1" value="{{ cliente.bairro| default('') }}"/>
+                    </div>
+                    <div class="input-group">
+                        <label>Cidade:</label>
+                        <input type="text" id="cidade" name="cidade" class="form-control ml-2" required="required" placeholder="Cidade"
+                            aria-describedby="basic-addon1" value="{{ cliente.cidade | default('') }}"/>
+                    </div>
+                    <div class="input-group">
+                        <label>Estado:</label>
+                        <input type="text" id="estado" name="estado" class="form-control ml-2" required="required" placeholder="Estado"
+                            aria-describedby="basic-addon1" value="{{ cliente.estado | default('') }}"/>
+                    </div>
+                    <div class="input-group">
+                        <label>Ponto de referência</label>
+                        <input type="text" name="referencia" class="form-control ml-2" placeholder="Ponto de referência"
+                            aria-describedby="basic-addon1" value="{{ cliente.referencia_end if cliente.referencia_end != 'null' else '' }}"/>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="button-confirm">
+                            {% if cliente  %}
+                                {{ strings.edit_btn }}
+                            {% else %}
+                                {{ strings.register_btn }}
+                            {% endif %}
+                        </button>
+                    </div>
+                </div>
+        </form>
+</main>
+{% endblock %}

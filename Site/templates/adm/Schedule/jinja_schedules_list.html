@@ -1,0 +1,83 @@
+{% extends "/adm/layout_adm.html" %}
+
+{% block head %}
+<title>{{ strings.table_title }}</title>
+<link rel="stylesheet" href="/static/css/list.css">
+<script src="{{ url_for('static', filename='scripts/list_search.js') }}"></script>
+
+{% endblock %}
+
+{% block body %}
+<main>
+    <h1>{{ strings.table_title }}</h1>
+
+    <div class="table-wrapper">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="d-flex justify-content-center align-items-center mb-3" style="width: 100%;">
+                <div class="input-group me-2" style="flex: 1;">
+                    <input type="text" class="form-control" id="filterInput" 
+                           placeholder="{{ strings.filter_placeholder }}" 
+                           onkeyup="filterDateTable(); toggleClearButton();">
+                    <button class="btn" id="clearButton" style="cursor: pointer; display: none;" onclick="clearFilter()">
+                        <i class="bi bi-x-circle"></i>
+                    </button>
+                </div>
+                
+                <div class="input-group" style="flex: 1;">
+                    <input type="date" name="datahora_agendamento" class="form-control ml-2" 
+                           id="dataInput"
+                           placeholder="Data" 
+                           aria-describedby="basic-addon1" 
+                           onclick="this.showPicker();" 
+                           onchange="filterDateTable()" />
+                    <button class="btn" id="clearButtonDate" style="cursor: pointer; display: none;" onclick="clearDate()">
+                        <i class="bi bi-x-circle"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+                
+        <table id="clientsTable" class="table table-bordered">
+            <thead class="thead-dark bg-style-2 text-center align-middle">
+                <tr>
+                    <th scope="col">Nome Cliente</th>
+                    <th scope="col">Tipo de serviço</th>
+                    <th scope="col">Realização</th>
+                    <th scope="col">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Status</span>
+                            <div class="d-inline-block ms-2">
+                                <a href="/agendamentos/cadastro" class="btn btn-icon-plus text-dark btn-sm">
+                                    <i class="bi bi-plus-circle" style="font-size: 1rem;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for scheduling in schedulings %}
+            <tr data-date="{{ scheduling['datahora_realizacao'] }}">
+                <td id="{{scheduling['id_cliente']}}">{{scheduling['cliente_nome']}}</td>
+                <td>{{scheduling['servico_nome']}}</td>
+                <td>{{scheduling['hora_formatada']}}</td>
+                <td>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>{{scheduling['status']}}</span>
+                        <div class="d-inline-block ms-2">
+                            <button class="btn btn-danger btn-sm" onclick="deleteOnList('{{ scheduling['id_agendamento'] }}', 'agendamentos', '{{ strings.delete_register }}')">
+                                <i class="bi bi-trash" style="font-size: 1rem;"></i>
+                            </button>
+                            <button class="btn btn-warning btn-sm" onclick='editObj({{ scheduling|tojson|safe }}, "id_agendamento", "agendamentos")'>
+                                <i class="bi bi-pencil" style="font-size: 1rem;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main> 
+{% endblock %}

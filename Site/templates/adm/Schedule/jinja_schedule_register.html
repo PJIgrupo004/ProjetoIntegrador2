@@ -1,0 +1,112 @@
+{% extends "/adm/layout_adm.html" %}
+
+{% block head %}
+<title>{{ strings.title }}</title>
+<link rel="stylesheet" href="/static/css/register.css">
+<script src="{{ url_for('static', filename='scripts/home.js') }}"></script>
+<script src="{{ url_for('static', filename='scripts/dates.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<main>
+    <div class="card">
+        <h2 class="card-title text-center">
+            {% if schedule.id_agendamento  %}
+                {{ strings.edit_title }}
+            {% else %}
+                {{ strings.title }}
+            {% endif %}
+        </h2>
+        <form action="{% if schedule.id_agendamento %}/agendamentos/{{ schedule['id_agendamento'] }}{% else %}/agendamentos/cadastro{% endif %}" method="POST">
+            <div class="input-group">
+                <label>Cliente:</label>
+                <div class="select-wrapper">
+                    <select name="cliente_select" class="custom-select form-control" required onclick="updateArrow('client_arrow_up', 'client_arrow_down')">
+                        <option value="{{ schedule.id_cliente| default('')  }}"
+                            disabled selected hidden>{{ schedule.cliente.nome| default(strings.choose_client) }}
+                        </option>   
+                        {% for cliente in schedule.clientes %}
+                            <option value="{{ cliente.id_cliente }}">{{ cliente.nome }}</option>
+                        {% endfor %}
+                    </select>
+                    <span id="status_arrow" class="custom-arrow">
+                        <i id="client_arrow_up" class="bi bi-chevron-down arrow-down"></i>
+                        <i id="client_arrow_down" style="display: none;" class="bi bi-chevron-up arrow-up"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Procedimento:</label>
+                <div class="select-wrapper">
+                    <select name="servico_select" class="custom-select form-control" onclick="updateArrow('work_arrow_up', 'work_arrow_down')" required>
+                        <option value="{{ schedule.id_procedimento| default('')  }}"
+                            disabled selected hidden>{{ schedule.servico.nome| default(strings.choose_work_type) }}
+                        </option>
+                        {% for servico in schedule.servicos %}
+                            <option value="{{ servico.id_procedimento }}">{{ servico.nome }}</option>
+                        {% endfor %}
+                    </select>
+                    <span id="status_arrow" class="custom-arrow">
+                        <i id="work_arrow_up" class="bi bi-chevron-down arrow-down"></i>
+                        <i id="work_arrow_down" style="display: none;" class="bi bi-chevron-up arrow-up"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Hora Agendamento:</label>
+                <input type="datetime-local" id ='datahora_agendamento' name="datahora_agendamento" class="form-control ml-2"
+                    aria-describedby="basic-addon1" value="{{ schedule.datahora_agendamento| default('') }}"/>
+            </div>
+            <div class="input-group">
+                <label>Hora Realização:</label>
+                <input type="datetime-local" id='datahora_realizacao' name="datahora_realizacao" class="form-control ml-2"
+                    aria-describedby="basic-addon1" value="{{ schedule.datahora_realizacao| default('') }}"/>
+            </div>
+            <div class="input-group">
+                <label>Status:</label>
+                <div class="select-wrapper">
+                    <select name="status_select" class="custom-select form-control" onclick="updateArrow('status_arrow_up', 'status_arrow_down')" required>
+                        <option value="{{ schedule.status| default('')  }}"
+                            disabled selected hidden>{{ schedule.status| default(strings.choose_status) }}
+                        </option>
+                        </option>
+                        {% for status in schedule.status_list %}
+                            <option value="{{ status }}">{{ status }}</option>
+                        {% endfor %}
+                    </select>
+                    <span id="status_arrow" class="custom-arrow">
+                        <i id="status_arrow_up" class="bi bi-chevron-down arrow-down"></i>
+                        <i id="status_arrow_down" style="display: none;" class="bi bi-chevron-up arrow-up"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Descrição:</label>
+                <textarea class="form-control" name="descricao_servico" type="text" placeholder="Descrição" style="height: 10rem" required>{{ schedule.descricao_servico| default('') }}</textarea>
+            </div>
+            <div class="input-group">
+                <label>Observações:</label>
+                <textarea class="form-control" name="observacoes" type="text" placeholder="Observações" style="height: 10rem" required>{{ schedule.observacoes| default('') }}</textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="button-confirm">
+                    {% if schedule  %}
+                        {{ strings.edit_btn }}
+                    {% else %}
+                        {{ strings.register_btn }}
+                    {% endif %}
+                </button>
+            </div>
+            <input type="hidden" name="cliente_id" value="{{ schedule.cliente.id_cliente }}">
+            <input type="hidden" name="servico_id" value="{{ schedule.servico.id_procedimento }}">
+            <input type="hidden" name="status_not_changed" value="{{ schedule.status }}">
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        setMinMaxDate(['datahora_agendamento', 'datahora_realizacao']);
+    });
+    </script>
+</main>
+{% endblock %}

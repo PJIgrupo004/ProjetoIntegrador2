@@ -1,35 +1,50 @@
-<html>
-<head>
-    <link rel="stylesheet" href="/static/css/layout.css">
+{% extends "layout.html" %}
 
-    {% block head %}
+{% block head %}
+{% endblock %}
 
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-style-2">
+    <div class="container-fluid">
+        {% if request.path.count('/') > 1 %}      
+        <a href="javascript:void(0);" class="back-button" onclick="goBackOneLevel()">
+            <div class="feature text-white rounded-3 me-2 align-self-center">
+                <i class="fas fa-arrow-left icon-large"></i>
+            </div>
+        </a>
+        {% endif %}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/dashboard' %}active{% endif %}" aria-current="page" href="/dashboard">{{ nav_strings.dashboard }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/clientes' %}active{% endif %}" href="/clientes">{{ nav_strings.clients }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/serviços' %}active{% endif %}" href="/serviços">{{ nav_strings.work_types }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/agendamentos' %}active{% endif %}" href="/agendamentos">{{ nav_strings.schedules }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/logout' %}active{% endif %}" href="/logout">{{ nav_strings.logout }}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{% endblock %}
+
+
+
+{% block body %}
+<main>
+    {% block content %}
     {% endblock %}
-
-</head>
-<body>
-    <header>
-        <img src="/static/logo.jpg" alt="image">
-    </header>
-    <nav class="navbar" >
-        <ul class="navbar">
-            <li><a href="/">Home</a><li>
-            <li><a href="{{url_for('agendamento')}}">Agendamento</a></li>
-            <li><a href="logout">Sair</a></li>
-        </ul>
-    </nav>
-
-    {% block body %}
-    {% endblock %}
-
-    <footer class="footer">
-        <p>Siga-nos nas redes sociais:</p>
-        <ul>
-            <li><a href="https://www.instagram.com/annaalvesbelezaestetica/"target="_blank"><img src="/static/instagram.logo.jpeg" >Instagram</a></li>
-            <li><a href="https://www.facebook.com/profile.php?id=100008415904030" target="_blank"><img src="/static/facebook.logo.jpeg">Facebook</a></li>
-            <li><a href="https://api.whatsapp.com/send?phone=%2B5519981114321&fbclid=IwAR0Ph63crFCBGXTLI5SvEbXcShY2t_xEYBRaDNz-bQSTSBD6QDPsZvo_ZIc" target="_blank"><img src="/static/whatsapp.logo.jpg" >Whatsapp</a></li>
-        </ul>
-    </footer>
-
-</body>
-</html>
+</main>
+{% endblock %}

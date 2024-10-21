@@ -1,0 +1,42 @@
+{% extends "/adm/layout_adm.html" %}
+
+{% block head %}
+<title>{{ strings.title }}</title>
+<link rel="stylesheet" href="/static/css/register.css">
+<script src="{{ url_for('static', filename='scripts/home.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<main>
+    <div class="card">
+        <h2 class="card-title text-center">
+            {% if work  %}
+                {{ strings.edit_title }}
+            {% else %}
+                {{ strings.title }}
+            {% endif %}
+        </h2>
+        <form action="{% if work %}/serviços/{{ work['id_procedimento'] }}{% else %}/serviços/cadastro{% endif %}" method="POST">
+            <div class="input-group">
+                <label>Nome:</label>
+                <input type="text" name="nome" class="form-control ml-2" required="required" placeholder="Nome"
+                    aria-describedby="basic-addon1" value="{{ work.nome| default('') }}"/>
+            </div>
+            <div class="input-group">
+                <label>Descrição:</label>
+                <textarea class="form-control" name="descricao" type="text" placeholder="Descrição" style="height: 10rem" required>{{ work.descricao| default('') }}</textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="button-confirm">
+                    {% if work  %}
+                        {{ strings.edit_btn }}
+                    {% else %}
+                        {{ strings.register_btn }}
+                    {% endif %}
+                </button>
+            </div>
+        </form>
+    </div>
+   
+</main>
+{% endblock %}

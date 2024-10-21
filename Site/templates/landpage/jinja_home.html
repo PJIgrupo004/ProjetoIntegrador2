@@ -1,0 +1,145 @@
+{% extends "layout.html" %}
+
+{% block head %}
+    <title>{{ strings.title }}</title>
+    <link rel="stylesheet" href="/static/css/home.css">
+    <script type="text/javascript">
+        var phoneNumber = "{{ phone_number }}";
+    </script>
+    <script src="{{ url_for('static', filename='scripts/home.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+
+<main>
+	<div class="header-gradient">
+        <!-- Navbar-->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container px-5">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">{{ strings.home }}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/login"> {{ strings.adm }}</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="#!" onclick="scrollToBottom()">{{ strings.contact }}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Header-->
+        <header class= "py-5">
+            <div class="container">
+                <div class="row gx-2 justify-content-center style="height: auto;">
+                    <div class="col-lg-8">
+                        <div class="text-center my-5">
+                            <h1 class="display-5 fw-bolder text-header mb-8">{{ strings.title }}</h1>
+								<div class="container-fluid p-3">
+									<div class="row g-0 text-start text-header">
+										<div class="col-lg-6 order-lg-1 my-auto p-4"> 
+											 <p class="lead mb-0"> {{ strings.description }}</p>
+											
+										 </div>
+										 <div class="col-lg-6 order-lg-2 text-white " style="background-image: url('static/assets/person_image.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center; height: auto;"></div>
+									</div>
+								</div>
+							<div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                                <button class="btn btn-primary btn-lg px-4 me-sm-5" style= "background-color: green; color: white; border: 1px solid white;" onclick="scrollToBottom()">{{ strings.start_contact }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        </div>
+		<!-- Image Showcases-->
+        <section class="showcase">
+            <div class="container-fluid p-0">
+                <div class="row g-0">
+                    <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('static/assets/bg-showcase-1.jpg')"></div>
+                    <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                        <h2>Fully Responsive Design</h2>
+                        <p class="lead mb-0">When you use a theme created by Start Bootstrap, you know that the theme will look great on any device, whether it's a phone, tablet, or desktop the page will behave responsively!</p>
+                    </div>
+                </div>
+                <div class="row g-0">
+                    <div class="col-lg-6 text-white showcase-img" style="background-image: url('static/assets/bg-showcase-2.jpg')"></div>
+                    <div class="col-lg-6 my-auto showcase-text">
+                        <h2>Updated For Bootstrap 5</h2>
+                        <p class="lead mb-0">Newly improved, and full of great utility classes, Bootstrap 5 is leading the way in mobile responsive web development! All of the themes on Start Bootstrap are now using Bootstrap 5!</p>
+                    </div>
+                </div>
+                <div class="row g-0">
+                    <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('static/assets/bg-showcase-3.jpg')"></div>
+                    <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                        <h2>Easy to Use & Customize</h2>
+                        <p class="lead mb-0">Landing Page is just HTML and CSS with a splash of SCSS for users who demand some deeper customization options. Out of the box, just add your content and images, and your new landing page will be ready to go!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+		<!-- Features section-->
+        <section class="features-icons bg-light text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                            <div class="features-icons-icon d-flex"><i class="bi-window m-auto text-primary"></i></div>
+                            <h3>Fully Responsive</h3>
+                            <p class="lead mb-0">This theme will look great on any device, no matter the size!</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                            <div class="features-icons-icon d-flex"><i class="bi-layers m-auto text-primary"></i></div>
+                            <h3>Bootstrap 5 Ready</h3>
+                            <p class="lead mb-0">Featuring the latest build of the new Bootstrap 5 framework!</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                            <div class="features-icons-icon d-flex"><i class="bi-terminal m-auto text-primary"></i></div>
+                            <h3>Easy to Use</h3>
+                            <p class="lead mb-0">Ready to use with your own content, or customize the source files!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Contact section-->
+        <section class="bg-light py-5">
+            <div class="container px-5 my-5 px-5">
+                <div class="text-center mb-5">
+                    <div class="feature bg-whatsapp-icon bg-gradient text-white rounded-3 mb-3"><i class="bi bi-whatsapp"></i></div>
+                    <h2 class="fw-bolder">{{ strings.budget_title }}</h2>
+                    <p class="lead mb-0">{{ strings.budget_description }}</p>
+                </div>
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-6">
+                        <form id="contactForm" onsubmit="return redirectToWhatsapp(phoneNumber);">
+                            <!-- Nome-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="name" type="text" placeholder="" required />
+                                <label for="name">{{ strings.name_form }}</label>
+                            </div>
+                            <!-- Tipo de serviço -->
+                            <div class="form-check mb-3">
+                                <label for="tipo_servico" class="me-2">{{ strings.type_work }}</label>
+                                <select id="tipo_servico" class="custom-select" required>
+                                    <option value="servico1">{{ strings.mount }}</option>
+                                    <option value="servico2">{{ strings.install }}</option>
+                                </select>
+                            </div>
+                            <!-- Descrição -->
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="message" type="text" placeholder="" style="height: 10rem" required></textarea>
+                                <label for="message">{{ strings.task_description_form }}</label>
+                            </div>
+                            <!-- Botão-->
+                            <div class="d-grid"><button class="btn btn-whatsapp btn-lg" id="submitButton" type="submit">{{ strings.start_contact }}</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+</main>
+{% endblock %}

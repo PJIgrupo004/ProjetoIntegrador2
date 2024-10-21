@@ -2,38 +2,59 @@
 
 {% block head %}
 <title>Dashboard</title>
-<link rel="stylesheet" href="/static/css/layout.css">
 <link rel="stylesheet" href="/static/css/dashboard.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
 <main>
-    <div>
-        <a href="administrador">
-            <i class="material-icons">person_add</i>
-            <span>Administração</span>
-        </a>
-        <a href="cadastro_serviços">
-            <i class="material-icons">create_new_folder</i>
-            <span>Cadastro de Serviços</span>
-        </a>
-        <a href="cadastro_funcionarios">
-            <i class="material-icons">group_add</i>
-            <span>Cadastro de Funcionarios</span>
-        </a>
-        <a href="clientes_cadastrados">
-            <i class="material-icons">contact_page</i>
-            <span>Clientes Cadastrados</span>
-        </a>
-        <a href="serviços_cadastrados">
-            <i class="material-icons">folder_open</i>
-            <span>Serviços Cadastrados</span>
-        </a>
-        <a href="funcionarios_cadastrados">
-            <i class="material-icons">badge</i>
-            <span>Funcionarios Cadastrados</span>
-        </a>
+<!-- Header -->
+<header class="py-5">
+    <div class="container px-lg-5">
+        <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+            <div class="m-4 m-lg-5">
+                <h1 class="display-5 fw-bold">{{ strings.choose_operation }}</h1>
+            </div>
+        </div>
     </div>
+</header>
+<!-- Opções -->
+<section class="pt-4">
+    <div class="container px-lg-5">
+        <div class="row gx-lg-5 justify-content-center">
+            <div class="col-lg-4 col-xxl-3 mb-5">
+                <div class="card bg-light border-0 h-100">
+                    <a href="/clientes" class="btn-primary text-center p-4 p-lg-5 pt-0 pt-lg-0 no-link">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-person-circle"></i></div>
+                        <h2 class="fs-4 fw-bold">{{ strings.clients }}</h2>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xxl-3 mb-5">
+                <div class="card bg-light border-0 h-100">
+                    <a href="/serviços" class="btn-primary text-center p-4 p-lg-5 pt-0 pt-lg-0 no-link">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-tools"></i></div>
+                        <h2 class="fs-4 fw-bold">{{ strings.work_types }}</h2>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xxl-3 mb-5">
+                <div class="card bg-light border-0 h-100">
+                    <a href="/agendamentos" class="btn-primary text-center p-4 p-lg-5 pt-0 pt-lg-0 no-link">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-calendar"></i></div>
+                        <h2 class="fs-4 fw-bold">{{ strings.schedules }}</h2>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xxl-3 mb-5">
+                <div class="card bg-light border-0 h-100">
+                    <a href="/logout" class="btn-primary text-center p-4 p-lg-5 pt-0 pt-lg-0 no-link">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-door-open"></i></div>
+                        <h2 class="fs-4 fw-bold">{{ strings.logout }}</h2>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 </main>
 {% endblock %}
